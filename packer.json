@@ -1,0 +1,24 @@
+{
+    
+    "builders": [
+        {
+        
+            "ami_name": "SBT_OJDK8_AMI",
+            "instance_type": "t3.micro",
+            "region": "us-west-1",
+            "subnet_id": "subnet-0de5110767ab84a4c",
+            "security_group_id":"sg-0caf5031186ca2a2c",
+            "associate_public_ip_address":"true",
+            "source_ami": "ami-03af6a70ccd8cb578",
+            "ssh_username": "ec2-user",
+            "type": "amazon-ebs"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "docker",
+            "inline": " sudo amazon-linux-extras install epel   && sudo yum repolist && sudo yum -y install dpkg && sudo  rm -rf /etc/yum.repos.d/bintray-rpm.repo || true && curl -L https://www.scala-sbt.org/sbt-rpm.repo > sbt-rpm.repo && sudo mv sbt-rpm.repo /etc/yum.repos.d && sudo yum -y install sbt"
+            
+        }
+    ]
+}
